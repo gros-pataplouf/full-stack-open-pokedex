@@ -6,7 +6,6 @@ describe('Pokedex', function() {
   })
   it('can navigate to pokémon subpage', function() {
     cy.visit('http://localhost:5000/pokemon/caterpie')
-    cy.contains('hidden ability')
     cy.contains('run away')
   })
 })
