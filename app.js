@@ -9,6 +9,11 @@ app.use(express.static('dist'))
 
 app.use(express.static(path.join(__dirname, 'dist')))
 
+app.get('/health', (req, res) => {
+  // eslint-disable-next-line no-constant-condition
+  if (true) throw('error...  ')
+  res.send('ok')
+})
 
 app.get('/version', (req, res) => {
   res.send('2') // change this string to ensure a new version deployed
