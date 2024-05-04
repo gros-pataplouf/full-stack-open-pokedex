@@ -11,7 +11,7 @@ app.use(express.static(path.join(__dirname, 'dist')))
 
 app.get('/health', (req, res) => {
   // eslint-disable-next-line no-constant-condition
-  if (true) throw('error...  ')
+  if (false) throw('error...  ')
   res.send('ok')
 })
 
