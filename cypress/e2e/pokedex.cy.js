@@ -4,7 +4,7 @@ describe('Pokedex', function() {
     cy.contains('ivysaur')
     cy.contains('Pokémon and Pokémon character names are trademarks of Nintendo.')
   })
-  it('can navigate to pokémon subpage', function() {
+  it('can navigate to pokemon subpage', function() {
     cy.visit('http://localhost:5000/pokemon/caterpie')
     cy.contains('run away')
   })
