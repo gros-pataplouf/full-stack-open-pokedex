@@ -9,12 +9,13 @@ app.use(express.static('dist'))
 
 app.use(express.static(path.join(__dirname, 'dist')))
 
-app.get('/*', function(req,res) {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'))
-})
 
 app.get('/version', (req, res) => {
   res.send('2') // change this string to ensure a new version deployed
+})
+
+app.get('/*', function(req,res) {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'))
 })
 
 app.listen(PORT, () => {
