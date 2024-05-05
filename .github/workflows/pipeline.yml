@@ -32,7 +32,7 @@ jobs:
             - name: Trigger deployment
               if: ${{ github.event_name == 'push' }}
               run: curl ${{ secrets.RENDER_HOOK }}
-    test_job:
+    check_skip:
       runs-on: ubuntu-20.04
       steps:
         - uses: actions/checkout@v4
@@ -46,11 +46,11 @@ jobs:
           run: echo "$COMMITS"
         - name: commit messages
           env:
-            COMMIT_MESSAGE: ${{ join(github.event.commits.*.message) }}
-          run: echo contains("#skip", "skip")
+            COMMIT_MESSAGE: contains((${{ join(github.event.commits.*.message) }}), "#skip")
+          run: echo "$COMMIT_MESSAGE"
     tag_release:
       if: ${{ github.event_name == 'push' }}
-      needs: [simple_deployment_pipeline]
+      needs: [simple_deployment_pipeline, check_skip]
       runs-on: ubuntu-20.04
       steps:
         - name: Checkout repo
