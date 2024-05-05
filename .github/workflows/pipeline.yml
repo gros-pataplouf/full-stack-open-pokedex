@@ -45,7 +45,9 @@ jobs:
             COMMITS: ${{ toJson(github.event.commits) }}
           run: echo "$COMMITS"
         - name: commit messages
-          run: echo contains(${{ toJson(github.event.commits.*.message) }}, "#skip")
+          env:
+            COMMIT_MESSAGE: ${{ toJson(github.event.commits.*.message) }}
+          run: echo contains("$COMMIT_MESSAGE", "#skip")
     tag_release:
       needs: [simple_deployment_pipeline, check_for_skip]
       if: ${{ github.event_name == 'push' }}
