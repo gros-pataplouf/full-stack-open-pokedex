@@ -39,7 +39,7 @@ jobs:
         - name: commit messages
           env:
             COMMIT_MESSAGE: ${{ contains(github.event.commits.*.message, '#skip') }}
-          run: echo "this must be skipped""
+          run: echo "$COMMIT_MESSAGE"
     tag_release:
       needs: [simple_deployment_pipeline]
       if: ${{ github.event_name == 'push' }}
