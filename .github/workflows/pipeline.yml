@@ -41,8 +41,8 @@ jobs:
             COMMIT_MESSAGE: ${{ contains(github.event.commits.*.message, '#skip') }}
           run: echo "$COMMIT_MESSAGE" > "$SKIP"
     tag_release:
-      needs: [simple_deployment_pipeline, check_for_skip]
-      if: ${{ github.event_name == 'push' }} && !"$SKIP"
+      needs: [simple_deployment_pipeline]
+      if: ${{ github.event_name == 'push' }} && ${{ !contains(github.event.commits.*.message, '#skip') }}
       runs-on: ubuntu-20.04
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
