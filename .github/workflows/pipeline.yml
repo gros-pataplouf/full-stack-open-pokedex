@@ -46,15 +46,16 @@ jobs:
           run: echo "$COMMITS"
         - name: commit messages
           env:
-            COMMIT_MESSAGE: ${{ contains(join(github.event.commits.*.message), '#skip') }}
-          run: echo "$COMMIT_MESSAGE"
+            SKIP: ${{ contains(join(github.event.commits.*.message), '#skip') }}
+          run: 'SKIP=echo "$SKIP" >> "$GITHUB_ENV"'
     tag_release:
-      if: ${{ github.event_name == 'push' }}
       needs: [simple_deployment_pipeline, check_skip]
+      if: ${{ github.event_name == 'push' }}
       runs-on: ubuntu-20.04
       steps:
         - name: Check for skip tag and set env
           uses: actions/checkout@v4
+        - run: echo "$SKIP"
         - name: Bump version and push tag
           uses: anothrNick/github-tag-action@1.67.0 # Don't use @master or @v1 unless you're happy to test the latest version
           env:
