@@ -36,21 +36,13 @@ jobs:
       runs-on: ubuntu-20.04
       steps:
         - uses: actions/checkout@v4
-        - name: github context
-          env:
-            GITHUB_CONTEXT: ${{ toJson(github) }}
-          run: echo "$GITHUB_CONTEXT"
-        - name: commits
-          env:
-            COMMITS: ${{ toJson(github.event.commits) }}
-          run: echo "$COMMITS"
         - name: commit messages
           env:
-            COMMIT_MESSAGE: ${{ toJson(github.event.commits.*.message) }}[0]
-          run: echo "$COMMIT_MESSAGE"
+            COMMIT_MESSAGE: ${{ contains(github.event.commits.*.message, '#skip') }}
+          run: echo "$COMMIT_MESSAGE" > "$SKIP"
     tag_release:
-      needs: [simple_deployment_pipeline]
-      if: ${{ github.event_name == 'push' }}
+      needs: [simple_deployment_pipeline, check_for_skip]
+      if: ${{ github.event_name == 'push' }} && !"$SKIP"
       runs-on: ubuntu-20.04
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
