@@ -47,5 +47,5 @@ jobs:
             SKIP: ${{ steps.set-skip.outputs.SKIP }}
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             DEFAULT_BUMP: patch
-          if: !$SKIP
+          if: ${{ env.SKIP != 'true' }}
           uses: anothrNick/github-tag-action@1.67.0
