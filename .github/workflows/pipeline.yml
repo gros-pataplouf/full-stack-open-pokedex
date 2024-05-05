@@ -55,7 +55,8 @@ jobs:
       steps:
         - name: Check for skip tag and set env
           uses: actions/checkout@v4
-        - run: echo "$SKIP"
+        - name: echo Skip var
+          run: echo $SKIP
         - name: Bump version and push tag
           uses: anothrNick/github-tag-action@1.67.0 # Don't use @master or @v1 unless you're happy to test the latest version
           env:
