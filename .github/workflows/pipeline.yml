@@ -46,10 +46,10 @@ jobs:
           run: echo "$COMMITS"
         - name: commit messages
           env:
-            COMMIT_MESSAGE: ${{ toJson(github.event.commits.*.message) }}
-          run: echo "$COMMIT_MESSAGE[0]"
+            COMMIT_MESSAGE: ${{ toJson(github.event.commits.*.message) }}[0]
+          run: echo "$COMMIT_MESSAGE"
     tag_release:
-      needs: [simple_deployment_pipeline, check_for_skip]
+      needs: [simple_deployment_pipeline]
       if: ${{ github.event_name == 'push' }}
       runs-on: ubuntu-20.04
       env:
