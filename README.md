@@ -3,6 +3,8 @@
 This repository is used for the CI/CD module of the Full stack open course
 
 Fork the repository to complete course exercises
+## Exercise 11.20 and 11.21:
+See https://github.com/gros-pataplouf/cap-together
 
 ## Commands
 
